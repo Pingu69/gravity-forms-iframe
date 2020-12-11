@@ -21,9 +21,14 @@
 			if ( this.readyState && 'complete' !== this.readyState && 'loaded' !== this.readyState ) {
 				return;
 			}
+      var style = document.head.getElementsByTagName('style')[1].innerText;
+      iframes[i].contentWindow.postMessage({
+        message: 'customCSS',
+        style: style.replace(/[\n\r]/g, ''),
+      }, '*' );
 
 			setInterval( function() {
-				// Send a message to the iframe to ask it to return its size.
+        // Send a message to the iframe to ask it to return its size.
 				iframes[ i ].contentWindow.postMessage({
 					message: 'size',
 					index: i

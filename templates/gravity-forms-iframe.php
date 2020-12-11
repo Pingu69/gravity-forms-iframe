@@ -14,7 +14,22 @@ body {
 </head>
 <body>
 <?php GFFormDisplay::print_form_scripts( $form, false ); // ajax = false ?>
-<?php gravity_form( $form_id, $display_title, $display_description ); ?>
+<?php
+  //Detect special conditions devices
+  $iPod    = stripos($_SERVER['HTTP_USER_AGENT'],"iPod");
+  $iPhone  = stripos($_SERVER['HTTP_USER_AGENT'],"iPhone");
+  $iPad    = stripos($_SERVER['HTTP_USER_AGENT'],"iPad"); 
+  $android = stripos($_SERVER['HTTP_USER_AGENT'],"Android");
+  $class = "xamoom-forms-web";
+  if($iPhone || $iPad || $iPod){
+    $class = "xamoom-forms-ios";
+  } else if($android){
+    $class = "xamoom-forms-android";
+  }
+echo '<div class="xamoom-forms ' . $class . '">';
+?> 
+  <?php gravity_form( $form_id, $display_title, $display_description ); ?>
+</div>
 <?php wp_footer(); ?>
 </body>
 </html>

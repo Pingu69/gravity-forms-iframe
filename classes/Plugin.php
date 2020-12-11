@@ -136,7 +136,13 @@ class GravityFormsIframe_Plugin extends GravityFormsIframe_AbstractPlugin {
 						index: e.data.index,
 						width: document.body.scrollWidth
 					}, e.origin );
-				}
+        }
+        
+        if (e.data.message === 'customCSS') {
+          var style = document.createElement('style');
+          document.head.appendChild(style);
+          style.innerText = e.data.style;
+        }
 			});
 
 			function getBodyHeight() {
